@@ -1,23 +1,17 @@
-const dropArea = document.querySelector(".drop_box"),
-  button = dropArea.querySelector("button"),
-  dragText = dropArea.querySelector("header"),
-  input = dropArea.querySelector("input");
-let file;
-var filename;
+const realFileBtn = document.getElementById("real-file");
+const customBtn = document.getElementById("custom-button");
+const customTxt = document.getElementById("custom-text");
 
-button.onclick = () => {
-  input.click();
-};
+customBtn.addEventListener("click", function() {
+  realFileBtn.click();
+});
 
-input.addEventListener("change", function (e) {
-  var fileName = e.target.files[0].name;
-  let filedata = `
-    <form action="" method="post">
-    <div class="form">
-    <h4>${fileName}</h4>
-    <input type="email" placeholder="Enter email upload file">
-    <button class="btn">Upload</button>
-    </div>
-    </form>`;
-  dropArea.innerHTML = filedata;
+realFileBtn.addEventListener("change", function() {
+  if (realFileBtn.value) {
+    customTxt.innerHTML = realFileBtn.value.match(
+      /[\/\\]([\w\d\s\.\-\(\)]+)$/
+    )[1];
+  } else {
+    customTxt.innerHTML = "No file chosen, yet.";
+  }
 });
